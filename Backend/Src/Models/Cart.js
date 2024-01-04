@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
 
-const cartSchema = new Schema({
+const cartSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -15,3 +15,5 @@ const cartSchema = new Schema({
     required: true
   },
 })
+
+export const Cart = mongoose.model('Cart', cartSchema);

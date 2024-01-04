@@ -1,7 +1,12 @@
 import mongoose, {Schema} from "mongoose";
 
 const customerSchema = new Schema({
-  name: {
+  firstName: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  lastName: {
     type: String,
     required: true,
     trim: true
@@ -23,7 +28,7 @@ const customerSchema = new Schema({
     required: true,
     trim: true
   },
-  number: {
+  phoneNumber: {
     type: Number,
     required: true
   },
