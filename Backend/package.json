@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "backend written node(express.js) and used mongodb for database",
   "type": "module",
-  "dev": "nodemon Src/index.js",
+  "dev": "nodemon -r dotenv/config --experimental-json-modules Src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,5 +11,8 @@
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^3.0.2"
+  },
+  "dependencies": {
+    "prettier": "^3.1.1"
   }
 }
