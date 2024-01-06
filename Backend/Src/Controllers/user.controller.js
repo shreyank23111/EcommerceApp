@@ -1,8 +1,8 @@
-import { Customer } from "../Models/Customer";
+import { Customer } from "../Models/Customer.js";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
-import { ApiError } from "../utils/ApiError";
-import { ApiResponse } from "../utils/ApiResponse";
+import { ApiError } from "../utils/ApiError.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
 
 const registerUser = (async(req, res)=>{
   try{
@@ -45,3 +45,5 @@ const registerUser = (async(req, res)=>{
     res.status(error.status || 500).json(new ApiError(error.status || 500, null, errorMessage));
   }
 })
+
+export {registerUser};
