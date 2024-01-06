@@ -4,12 +4,14 @@ import mongoose from "mongoose";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 
+
+
 const registerUser = (async(req, res)=>{
   try{
 
     const {firstName, lastName, email, userName, password, phoneNumber} = req.body;
     if(
-      [firstName, lastName, email, userName, password, phoneNumber].some((field) => field?.trim() === "")
+      [firstName, lastName, email, userName, password, phoneNumber].some((field) => typeof field === "string" && field.trim() === "")
     ){
       throw new ApiError(400, "All fields are required");
     }
