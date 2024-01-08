@@ -3,33 +3,38 @@ import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
+import { EMAIL_PROVIDER } from "../Constants/index.js";
+import { signupSchema, loginSchema } from "../Zod/auth.schema.js";
+import bcrypt from "bcrypt";
+// const { EMAIL_PROVIDER, JWT_COOKIE } = require('../Constants/index.js');
+import { validUserData } from "../Middlewares/Auth/user.js";
 
 
 
 const registerUser = (async(req, res)=>{
   try{
 
-    const {firstName, lastName, email, userName, password, phoneNumber} = req.body;
-    if(
-      [firstName, lastName, email, userName, password, phoneNumber].some((field) => typeof field === "string" && field.trim() === "")
-    ){
-      throw new ApiError(400, "All fields are required");
-    }
+    const {firstName, lastName, email, userName, password, phoneNumber} = signupSchema.parse(req.body);
+    
+   
     const existedUser = await Customer.findOne({
-      $or: [{userName}, {email}]
+      $or: [{email}]
     })
 
     if(existedUser){
       throw new ApiError(409, "User with this username and email already exist");
     }
 
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
     const customer = await Customer.create({
       firstName,
       lastName,
       email,
-      password,
+      password: hashedPassword,
       phoneNumber,
-      userName: userName.toLowerCase()
+      userName: userName
     });
 
     //refresh token
@@ -48,4 +53,25 @@ const registerUser = (async(req, res)=>{
   }
 })
 
-export {registerUser};
+const loginUser = (async(req, res) =>{
+  try{
+    const {email, password} = loginSchema.parse(req.body);
+    console.log(email, password);
+
+    const user = await Customer.findOne({email});
+
+    if(!user || !(await bcrypt.compare(password, user.password))){
+      throw new ApiError(404, "Wrong username or password");
+    }
+    console.log('Provided password:', user.password);
+  
+      return res.status(200).json(new ApiResponse(200, Customer, "User logeIn successfully"));
+    
+
+  } catch(error){
+    const errorMessage = error.message || "An internal server error occurred. Please try again later";
+    res.status(error.status || 500).json(new ApiError(error.status || 500, null, errorMessage));
+  }
+})
+
+export {registerUser, loginUser};
