@@ -9,6 +9,8 @@ import bcrypt from "bcrypt";
 // const { EMAIL_PROVIDER, JWT_COOKIE } = require('../Constants/index.js');
 import { validUserData } from "../Middlewares/Auth/user.js";
 
+const jwtSecret = process.env.JWT_SECRET;
+
 
 
 const registerUser = (async(req, res)=>{
@@ -56,18 +58,23 @@ const registerUser = (async(req, res)=>{
 const loginUser = (async(req, res) =>{
   try{
     const {email, password} = loginSchema.parse(req.body);
-    console.log(email, password);
 
     const user = await Customer.findOne({email});
 
     if(!user || !(await bcrypt.compare(password, user.password))){
       throw new ApiError(404, "Wrong username or password");
-    }
-    console.log('Provided password:', user.password);
-  
-      return res.status(200).json(new ApiResponse(200, Customer, "User logeIn successfully"));
-    
+    };
 
+    const token =jwt.sign({
+      email,
+      user: user._id
+    }, jwtSecret);
+
+    user.jwtToken = token;
+    await user.save();
+
+    return res.status(200).json(new ApiResponse(200, Customer, "User logeIn successfully", token));
+    
   } catch(error){
     const errorMessage = error.message || "An internal server error occurred. Please try again later";
     res.status(error.status || 500).json(new ApiError(error.status || 500, null, errorMessage));
