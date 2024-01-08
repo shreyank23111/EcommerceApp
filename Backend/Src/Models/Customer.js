@@ -32,6 +32,9 @@ const customerSchema = new Schema({
     type: Number,
     required: true
   },
+  jwtToken: {
+    type: String
+  },
 }, {timestamps: true})
 
 export const Customer = mongoose.model("Customer", customerSchema);
