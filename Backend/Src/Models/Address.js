@@ -6,7 +6,14 @@ const addressSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Customer"
   },
-  address: {
+  landmark: {
+    type: String,
+  },
+  houseBuilding: {
+    type: String,
+    required: true
+  },
+  roadArea: {
     type: String,
     required: true
   },
@@ -16,11 +23,10 @@ const addressSchema = new mongoose.Schema({
   },
   state: {
     type: String,
-    required: true
+    required: true,
   },
   country: {
-    type: String,
-    required: true
+    default: "INDIA",
   },
   pinCode: {
     type: Number,
