@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose"
 
 
 const addressSchema = new mongoose.Schema({
@@ -26,7 +26,8 @@ const addressSchema = new mongoose.Schema({
     required: true,
   },
   country: {
-    default: "INDIA",
+    type: String,
+    required: true,
   },
   pinCode: {
     type: Number,
