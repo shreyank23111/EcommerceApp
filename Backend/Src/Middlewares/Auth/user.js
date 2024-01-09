@@ -10,7 +10,7 @@ const validUserData = (req, res, next) => {
 
   const validData = signupSchema.safeParse(req.body)
   if(!validData.success){
-    throw new ApiError(500, JSON.stringify(validData.error) || "Please enter valid details")
+    throw new ApiError(500, "Please enter valid details")
   };
   req.validUserData = validData.data;
   next();

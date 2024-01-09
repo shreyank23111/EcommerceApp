@@ -11,8 +11,6 @@ import { validUserData } from "../Middlewares/Auth/user.js";
 
 const jwtSecret = process.env.JWT_SECRET;
 
-
-
 const registerUser = (async(req, res)=>{
   try{
 
