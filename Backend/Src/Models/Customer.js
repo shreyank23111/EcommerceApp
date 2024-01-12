@@ -32,6 +32,16 @@ const customerSchema = new Schema({
     type: Number,
     required: true
   },
+  role: {
+    type: String,
+    default: "Role.Merchant",
+    enum: ["Role.Member","Role.Admin", "Role.Merchant"]
+  },
+  merchant: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Merchant",
+    default: null
+  },
   jwtToken: {
     type: String
   },

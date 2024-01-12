@@ -6,7 +6,8 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { EMAIL_PROVIDER } from "../Constants/index.js";
 import { signupSchema, loginSchema } from "../Zod/auth.schema.js";
 import bcrypt from "bcrypt";
-// const { EMAIL_PROVIDER, JWT_COOKIE } = require('../Constants/index.js');
+
+// import require('../Constants/index.js');
 import { validUserData } from "../Middlewares/Auth/user.js";
 
 const jwtSecret = process.env.JWT_SECRET;
