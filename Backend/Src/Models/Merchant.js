@@ -1,6 +1,21 @@
 import mongoose from "mongoose";
 
 const merchantSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  email: {
+    type: String,
+    required: true,
+    trim: true,
+    lowercase: true
+  },
+  phoneNumber: {
+    type: Number,
+    required: true
+  },
   business: {
     type: String,
     trim: true,
@@ -9,8 +24,6 @@ const merchantSchema = new mongoose.Schema({
   brand: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Brand",
-    trim: true,
-    required: true
   },
   brandName: {
     type: String,
@@ -18,4 +31,4 @@ const merchantSchema = new mongoose.Schema({
   }
 }, {timestamps: true});
 
-export const Merchant = mongoose.model("merchantSchema", merchantSchema );
+export const Merchant = mongoose.model("Merchant", merchantSchema );
