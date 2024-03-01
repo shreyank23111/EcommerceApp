@@ -23,11 +23,13 @@ import userRoute from "./Routes/user.routes.js";
 import addressRoute from "./Routes/address.routes.js";
 import contactRoute from "./Routes/contactUs.routes.js"
 import beMerchantRoute from "./Routes/merchant.routes.js"
+import brandRoute from "./Routes/brand.routes.js"
 
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1/address", addressRoute);
 app.use("/api/v1/contact", contactRoute);
 app.use("/api/v1/merchant", beMerchantRoute);
+app.use("/api/v1/brand", brandRoute)
 
 
 export { app }

@@ -12,10 +12,8 @@ const authenticateUser = async(req, res, next) =>{
     }
 
     const decode = jwt.verify(token, jwtSecret);
-    console.log(decode);
 
     const user = await Customer.findOne({_id: decode.user});
-    console.log(user);
 
     if (!user) {
       throw new ApiError(401, 'Unauthorized: Invalid token');

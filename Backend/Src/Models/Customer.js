@@ -1,12 +1,7 @@
 import mongoose, {Schema} from "mongoose";
 
 const customerSchema = new Schema({
-  firstName: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  lastName: {
+  name: {
     type: String,
     required: true,
     trim: true
